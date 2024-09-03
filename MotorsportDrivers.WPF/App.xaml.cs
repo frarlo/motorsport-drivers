@@ -12,7 +12,7 @@ namespace MotorsportDrivers.WPF
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow = new();
             mainWindow.Show();
 
             base.OnStartup(e);
