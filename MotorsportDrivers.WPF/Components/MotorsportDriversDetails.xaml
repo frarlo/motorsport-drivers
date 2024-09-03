@@ -8,10 +8,11 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Border 
-            BorderBrush="LightGray"
+            BorderBrush="{StaticResource BorderPrimary}"
+            SnapsToDevicePixels="True"
             BorderThickness="1"
             CornerRadius="5"
-            Padding="15">
+            Padding="20">
             <Grid Grid.IsSharedSizeScope="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
