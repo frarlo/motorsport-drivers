@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using MotorsportDrivers.WPF.ViewModels;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
@@ -12,7 +13,10 @@ namespace MotorsportDrivers.WPF
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow mainWindow = new();
+            MainWindow mainWindow = new MainWindow()
+            {
+                DataContext = new MotorsportDriversViewModel()
+            };
             mainWindow.Show();
 
             base.OnStartup(e);

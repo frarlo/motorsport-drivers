@@ -23,7 +23,7 @@
                 <TextBlock
                     Grid.Row="0"
                     FontSize="24"
-                    Text="Ayrton" />
+                    Text="{Binding Name}" />
 
                 <Grid Grid.Row="1" Margin="0 20 0 0">
                     <Grid.ColumnDefinitions>
@@ -39,7 +39,7 @@
                     <TextBlock 
                         Grid.Column="1"
                         Margin="20 0 0 0"
-                        Text="Yes" />
+                        Text="{Binding IsWorldChampionDisplay}" />
 
                 </Grid>
                 <Grid Grid.Row="2" Margin="0 20 0 0">
@@ -56,7 +56,7 @@
                     <TextBlock 
                         Grid.Column="1"
                         Margin="20 0 0 0"
-                        Text="Brazil" />
+                        Text="{Binding Country}" />
 
                 </Grid>
             </Grid>
