@@ -23,7 +23,9 @@
                     x:Name="border"
                     Background="White"
                     CornerRadius="5" />
-                <ListView BorderThickness="0" ItemsSource="{Binding MotorsportDriversListingItemViewModels}">
+                <ListView BorderThickness="0"
+                          ItemsSource="{Binding MotorsportDriversListingItemViewModels}"
+                          SelectedItem="{Binding SelectedMotorsportDriverListingItemViewModel}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />

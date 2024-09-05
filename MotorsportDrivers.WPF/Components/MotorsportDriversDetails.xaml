@@ -13,51 +13,80 @@
             BorderThickness="1"
             CornerRadius="5"
             Padding="20">
-            <Grid Grid.IsSharedSizeScope="True">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
+            <Grid>
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasSelectedMotorsportDriver}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <TextBlock
+                    Grid.Row="0"
+                    FontSize="20"
+                    Text="Please, select a driver" 
+                    TextWrapping="WrapWithOverflow"/>
+                </Grid>
+                <Grid Grid.IsSharedSizeScope="True">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasSelectedMotorsportDriver}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
 
-                <TextBlock
+                    <TextBlock
                     Grid.Row="0"
                     FontSize="24"
                     Text="{Binding Name}" />
 
-                <Grid Grid.Row="1" Margin="0 20 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1" Margin="0 20 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock
+                        <TextBlock
                         Grid.Column="0"
                         FontWeight="Bold"
                         Text="Is World Champion?" />
 
-                    <TextBlock 
+                        <TextBlock 
                         Grid.Column="1"
                         Margin="20 0 0 0"
                         Text="{Binding IsWorldChampionDisplay}" />
 
-                </Grid>
-                <Grid Grid.Row="2" Margin="0 20 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="0 20 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock
+                        <TextBlock
                         Grid.Column="0"
                         FontWeight="Bold"
                         Text="Country" />
 
-                    <TextBlock 
+                        <TextBlock 
                         Grid.Column="1"
                         Margin="20 0 0 0"
                         Text="{Binding Country}" />
 
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>

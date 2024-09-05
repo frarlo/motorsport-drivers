@@ -1,21 +1,27 @@
-﻿using MotorsportDrivers.WPF.ViewModels;
+﻿using MotorsportDrivers.WPF.Stores;
+using MotorsportDrivers.WPF.ViewModels;
 using System.Configuration;
 using System.Data;
 using System.Windows;
 
 namespace MotorsportDrivers.WPF
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
+
     public partial class App : Application
     {
+
+        private readonly SelectedMotorsportDriverStore _selectedMotorsportDriverStore;
+
+        public App()
+        {
+            _selectedMotorsportDriverStore = new SelectedMotorsportDriverStore();
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             MainWindow mainWindow = new MainWindow()
             {
-                DataContext = new MotorsportDriversViewModel()
+                DataContext = new MotorsportDriversViewModel(_selectedMotorsportDriverStore)
             };
             mainWindow.Show();
 

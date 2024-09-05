@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MotorsportDrivers.WPF.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,17 +10,17 @@ namespace MotorsportDrivers.WPF.ViewModels
 {
     public class MotorsportDriversListingItemViewModel : ViewModelBase
     {
+        public MotorsportDriver MotorsportDriver { get; }
 
-        public string Name { get; set; }
+        public string Name => MotorsportDriver.Name;
 
         public ICommand EditCommand { get; }
 
         public ICommand DeleteCommand { get; }
 
-        public MotorsportDriversListingItemViewModel(string name)
+        public MotorsportDriversListingItemViewModel(MotorsportDriver motorsportDriver)
         {
-            Name = name;
+            MotorsportDriver = motorsportDriver;
         }
-
     }
 }

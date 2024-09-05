@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MotorsportDrivers.WPF.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,15 +17,13 @@ namespace MotorsportDrivers.WPF.ViewModels
 
         public ICommand AddMotorsportDriversCommand { get; }
 
-        public MotorsportDriversViewModel()
+        public MotorsportDriversViewModel(SelectedMotorsportDriverStore _selectedMotorsportDriverStore)
         {
-            MotorsportDriversListingViewModel = new MotorsportDriversListingViewModel();
+            MotorsportDriversListingViewModel = new MotorsportDriversListingViewModel(_selectedMotorsportDriverStore);
 
-            MotorsportDriversDetailsViewModel = new MotorsportDriversDetailsViewModel();    
-
+            MotorsportDriversDetailsViewModel = new MotorsportDriversDetailsViewModel(_selectedMotorsportDriverStore);    
 
         }
 
-        
     }
 }
