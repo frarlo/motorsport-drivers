@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MotorsportDrivers.WPF.ViewModels
 {
-    public class EditMotorsportDriverViewModel
+    public class EditMotorsportDriverViewModel : ViewModelBase
     {
         public MotorsportDriverDetailsFormViewModel MotorsportDriverDetailsFormViewModel { get; }
 

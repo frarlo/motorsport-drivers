@@ -21,7 +21,7 @@ namespace MotorsportDrivers.WPF.Stores
             set
             {
                 /*
-                if(_currentViewModel != null)
+                if(IsOpen)
                 {
                     _currentViewModel.Dispose();
                 }
@@ -30,6 +30,8 @@ namespace MotorsportDrivers.WPF.Stores
                 CurrentViewModelChanged?.Invoke();
             }
         }
+
+        public bool IsOpen => CurrentViewModel != null;
 
         public event Action CurrentViewModelChanged;
 

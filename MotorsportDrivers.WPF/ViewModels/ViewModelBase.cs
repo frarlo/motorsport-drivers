@@ -15,7 +15,7 @@ namespace MotorsportDrivers.WPF.ViewModels
 
         protected virtual void OnPropertyChanged(string propertyName = null)
         {
-            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         protected virtual void Dispose() { }
