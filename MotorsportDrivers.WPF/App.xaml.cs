@@ -9,21 +9,25 @@ namespace MotorsportDrivers.WPF
 
     public partial class App : Application
     {
-
+        private readonly ModalNavigationStore _modalNavigationStore;
         private readonly SelectedMotorsportDriverStore _selectedMotorsportDriverStore;
 
         public App()
         {
+            _modalNavigationStore = new ModalNavigationStore();
             _selectedMotorsportDriverStore = new SelectedMotorsportDriverStore();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow()
+            MotorsportDriversViewModel motorsportDriversViewModel = new MotorsportDriversViewModel(_selectedMotorsportDriverStore);
+
+            MainWindow = new MainWindow()
             {
-                DataContext = new MotorsportDriversViewModel(_selectedMotorsportDriverStore)
+                DataContext = new MainViewModel(_modalNavigationStore, motorsportDriversViewModel)
             };
-            mainWindow.Show();
+
+            MainWindow.Show();
 
             base.OnStartup(e);
         }

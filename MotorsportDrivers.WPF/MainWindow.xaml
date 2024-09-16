@@ -7,10 +7,9 @@
         mc:Ignorable="d"
         Title="Motorsport Drivers" Height="450" Width="800" FontSize="14">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        <StackPanel Margin="20">
-            <views:AddMotorsportDriverView />
-            <views:EditMotorsportDriverView />
-            <!-- views:MotorsportDriversView / -->
-        </StackPanel>
+        <Grid Margin="25">
+
+            <views:MotorsportDriversView DataContext="{Binding MotorsportDriversViewModel}" />
+        </Grid>
     </ScrollViewer>
 </Window>
