@@ -18,7 +18,10 @@
             Style="{StaticResource PageHeader}"
             Text="Add Motorsport Driver" />
 
-        <components:MotorsportDriverDetailsForm Grid.Row="1" Margin="0 30 0 0" />
+        <components:MotorsportDriverDetailsForm 
+            Grid.Row="1"
+            Margin="0 30 0 0"
+            DataContext="{Binding MotorsportDriverDetailsFormViewModel}"/>
         
     </Grid>
 </UserControl>

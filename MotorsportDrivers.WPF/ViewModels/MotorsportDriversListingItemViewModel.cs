@@ -18,9 +18,10 @@ namespace MotorsportDrivers.WPF.ViewModels
 
         public ICommand DeleteCommand { get; }
 
-        public MotorsportDriversListingItemViewModel(MotorsportDriver motorsportDriver)
+        public MotorsportDriversListingItemViewModel(MotorsportDriver motorsportDriver, ICommand editCommand)
         {
             MotorsportDriver = motorsportDriver;
+            EditCommand = editCommand;
         }
     }
 }

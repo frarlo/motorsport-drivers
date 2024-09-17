@@ -61,5 +61,12 @@ namespace MotorsportDrivers.WPF.ViewModels
         public ICommand SubmitCommand { get; }
 
         public ICommand CancelCommand { get; }
+
+
+        public MotorsportDriverDetailsFormViewModel(ICommand submitCommand, ICommand cancelCommand)
+        {
+            SubmitCommand = submitCommand;
+            CancelCommand = cancelCommand;
+        }
     }
 }

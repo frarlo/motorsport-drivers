@@ -35,6 +35,9 @@ namespace MotorsportDrivers.WPF.Stores
 
         public event Action CurrentViewModelChanged;
 
-
+        internal void Close()
+        {
+            CurrentViewModel = null;
+        }
     }
 }

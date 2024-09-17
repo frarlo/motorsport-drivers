@@ -20,7 +20,7 @@ namespace MotorsportDrivers.WPF
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            MotorsportDriversViewModel motorsportDriversViewModel = new MotorsportDriversViewModel(_selectedMotorsportDriverStore);
+            MotorsportDriversViewModel motorsportDriversViewModel = new MotorsportDriversViewModel(_selectedMotorsportDriverStore, _modalNavigationStore);
 
             MainWindow = new MainWindow()
             {
