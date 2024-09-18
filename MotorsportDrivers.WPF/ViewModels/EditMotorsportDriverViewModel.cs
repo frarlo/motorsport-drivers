@@ -12,11 +12,14 @@ namespace MotorsportDrivers.WPF.ViewModels
 {
     public class EditMotorsportDriverViewModel : ViewModelBase
     {
+        public Guid MotorsportDriverId { get; }
         public MotorsportDriverDetailsFormViewModel MotorsportDriverDetailsFormViewModel { get; }
 
-        public EditMotorsportDriverViewModel(MotorsportDriver motorsportDriver, ModalNavigationStore modalNavigationStore)
+        public EditMotorsportDriverViewModel(MotorsportDriver motorsportDriver, MotorsportDriversStore motorsportDriversStore, ModalNavigationStore modalNavigationStore)
         {
-            ICommand editCommand = new EditMotorsportDriverCommand(modalNavigationStore);
+            MotorsportDriverId = motorsportDriver.Id;
+
+            ICommand editCommand = new EditMotorsportDriverCommand(this, motorsportDriversStore, modalNavigationStore);
             ICommand cancelCommand = new CloseModalCommand(modalNavigationStore);
             MotorsportDriverDetailsFormViewModel = new MotorsportDriverDetailsFormViewModel(editCommand, cancelCommand)
             {

@@ -1,4 +1,6 @@
-﻿using MotorsportDrivers.WPF.Models;
+﻿using MotorsportDrivers.WPF.Commands;
+using MotorsportDrivers.WPF.Models;
+using MotorsportDrivers.WPF.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace MotorsportDrivers.WPF.ViewModels
 {
     public class MotorsportDriversListingItemViewModel : ViewModelBase
     {
-        public MotorsportDriver MotorsportDriver { get; }
+        public MotorsportDriver MotorsportDriver { get; private set; }
 
         public string Name => MotorsportDriver.Name;
 
@@ -18,10 +20,18 @@ namespace MotorsportDrivers.WPF.ViewModels
 
         public ICommand DeleteCommand { get; }
 
-        public MotorsportDriversListingItemViewModel(MotorsportDriver motorsportDriver, ICommand editCommand)
+        public MotorsportDriversListingItemViewModel(MotorsportDriver motorsportDriver, MotorsportDriversStore motorsportDriversStore, ModalNavigationStore modalNavigationStore)
         {
             MotorsportDriver = motorsportDriver;
-            EditCommand = editCommand;
+
+            EditCommand = new OpenEditMotorsportDriverCommand(this, motorsportDriversStore, modalNavigationStore);
+        }
+
+        public void Update(MotorsportDriver motorsportDriver)
+        {
+            MotorsportDriver = motorsportDriver;
+
+            OnPropertyChanged(nameof(Name));
         }
     }
 }

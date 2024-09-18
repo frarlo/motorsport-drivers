@@ -11,17 +11,18 @@ namespace MotorsportDrivers.WPF.Commands
 {
     public class OpenAddMotorsportDriverCommand : CommandBase
     {
-
+        private readonly MotorsportDriversStore _motorsportDriversStore;
         private readonly ModalNavigationStore _modalNavigationStore;
 
-        public OpenAddMotorsportDriverCommand(ModalNavigationStore modalNavigationStore)
+        public OpenAddMotorsportDriverCommand(MotorsportDriversStore motorsportDriversStore, ModalNavigationStore modalNavigationStore)
         {
+            _motorsportDriversStore = motorsportDriversStore;
             _modalNavigationStore = modalNavigationStore;
         }
 
         public override void Execute(object? parameter)
         {
-            AddMotorsportDriverViewModel addMotorsportDriverViewModel = new AddMotorsportDriverViewModel(_modalNavigationStore);
+            AddMotorsportDriverViewModel addMotorsportDriverViewModel = new AddMotorsportDriverViewModel(_motorsportDriversStore , _modalNavigationStore);
 
             _modalNavigationStore.CurrentViewModel = addMotorsportDriverViewModel;
         }

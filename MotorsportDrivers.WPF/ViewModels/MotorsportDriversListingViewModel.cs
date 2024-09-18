@@ -13,9 +13,9 @@ namespace MotorsportDrivers.WPF.ViewModels
 {
     public class MotorsportDriversListingViewModel : ViewModelBase
     {
-
+        private readonly MotorsportDriversStore _motorsportDriversStore;
         private readonly SelectedMotorsportDriverStore _selectedMotorsportDriverStore;
-
+        private readonly ModalNavigationStore _modalNavigationStore;
         private readonly ObservableCollection<MotorsportDriversListingItemViewModel> _motorsportDriversListingItemViewModels;
 
         public IEnumerable<MotorsportDriversListingItemViewModel> MotorsportDriversListingItemViewModels => _motorsportDriversListingItemViewModels;
@@ -37,23 +37,51 @@ namespace MotorsportDrivers.WPF.ViewModels
             }
         }
 
-        public MotorsportDriversListingViewModel(SelectedMotorsportDriverStore selectedMotorsportDriverStore, ModalNavigationStore modalNavigationStore) {
+        public MotorsportDriversListingViewModel(MotorsportDriversStore motorsportDriversStore, SelectedMotorsportDriverStore selectedMotorsportDriverStore, ModalNavigationStore modalNavigationStore) {
 
+
+            _motorsportDriversStore = motorsportDriversStore;
+            _selectedMotorsportDriverStore = selectedMotorsportDriverStore;
+            _modalNavigationStore = modalNavigationStore;
             _motorsportDriversListingItemViewModels = new ObservableCollection<MotorsportDriversListingItemViewModel>();
 
-            AddMotorsportDriver(new MotorsportDriver("Ayrton Senna",true,"Brazil"), modalNavigationStore);
-            AddMotorsportDriver(new MotorsportDriver("Mika Hakkinen", true, "Finland"), modalNavigationStore);
-            AddMotorsportDriver(new MotorsportDriver("Fernando Alonso", true, "Spain"), modalNavigationStore);
-            AddMotorsportDriver(new MotorsportDriver("Nico Hulkenberg", false, "Germany"), modalNavigationStore);
+            _motorsportDriversStore.MotorsportDriverCreatedEvent += MotorsportDriversStore_MotorsportDriverCreatedEvent;
+            _motorsportDriversStore.MotorsportDriverUpdatedEvent += MotorsportDriversStore_MotorsportDriverUpdatedEvent;
 
-            this._selectedMotorsportDriverStore = selectedMotorsportDriverStore;
         }
 
-        // Temporary method:
-        private void AddMotorsportDriver(MotorsportDriver motorsportDriver, ModalNavigationStore modalNavigationStore)
+        protected override void Dispose()
         {
-            ICommand editCommand = new OpenEditMotrosportDriverCommand(motorsportDriver, modalNavigationStore);
-            _motorsportDriversListingItemViewModels.Add(new MotorsportDriversListingItemViewModel(motorsportDriver, editCommand));
+            _motorsportDriversStore.MotorsportDriverCreatedEvent -= MotorsportDriversStore_MotorsportDriverCreatedEvent;
+            _motorsportDriversStore.MotorsportDriverUpdatedEvent -= MotorsportDriversStore_MotorsportDriverUpdatedEvent;
+
+            base.Dispose();
         }
+
+        private void MotorsportDriversStore_MotorsportDriverCreatedEvent(MotorsportDriver motorsportDriver)
+        {
+            CreateMotorsportDriver(motorsportDriver);
+        }
+
+        private void CreateMotorsportDriver(MotorsportDriver motorsportDriver)
+        {
+            MotorsportDriversListingItemViewModel itemViewModel = new MotorsportDriversListingItemViewModel(motorsportDriver, _motorsportDriversStore, _modalNavigationStore);
+
+            _motorsportDriversListingItemViewModels.Add(itemViewModel);
+        }
+
+
+        private void MotorsportDriversStore_MotorsportDriverUpdatedEvent(MotorsportDriver motorsportDriver)
+        {
+            MotorsportDriversListingItemViewModel motorsportDriverViewModel =
+            _motorsportDriversListingItemViewModels.FirstOrDefault(d => d.MotorsportDriver.Id == motorsportDriver.Id);
+
+            if (motorsportDriverViewModel != null)
+            {
+                motorsportDriverViewModel.Update(motorsportDriver);
+            }
+            
+        }
+
     }
 }

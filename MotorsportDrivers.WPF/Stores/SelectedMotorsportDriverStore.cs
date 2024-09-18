@@ -9,6 +9,8 @@ namespace MotorsportDrivers.WPF.Stores
 {
     public class SelectedMotorsportDriverStore
     {
+        private readonly MotorsportDriversStore _motorsportDriversStore;
+
         private MotorsportDriver _selectedMotorsportDriver;
 
         public MotorsportDriver SelectedMotorsportDriver
@@ -27,5 +29,19 @@ namespace MotorsportDrivers.WPF.Stores
 
         public event Action SelectedMotorsportDriverChanged;
 
+        public SelectedMotorsportDriverStore(MotorsportDriversStore motorsportDriversStore)
+        {
+            _motorsportDriversStore = motorsportDriversStore;
+
+            _motorsportDriversStore.MotorsportDriverUpdatedEvent += _motorsportDriversStore_MotorsportDriverUpdatedEvent;
+        }
+
+        private void _motorsportDriversStore_MotorsportDriverUpdatedEvent(MotorsportDriver motorsportDriver)
+        {
+            if (motorsportDriver.Id == SelectedMotorsportDriver?.Id)
+            {
+                SelectedMotorsportDriver = motorsportDriver;
+            }
+        }
     }
 }

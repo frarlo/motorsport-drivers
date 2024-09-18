@@ -14,9 +14,9 @@ namespace MotorsportDrivers.WPF.ViewModels
 
         public MotorsportDriverDetailsFormViewModel MotorsportDriverDetailsFormViewModel { get; }
 
-        public AddMotorsportDriverViewModel(ModalNavigationStore modalNavigationStore)
+        public AddMotorsportDriverViewModel(MotorsportDriversStore motorsportDriversStore, ModalNavigationStore modalNavigationStore)
         {
-            ICommand submitCommand = new AddMotorsportDriverCommand(modalNavigationStore);
+            ICommand submitCommand = new AddMotorsportDriverCommand(this, motorsportDriversStore, modalNavigationStore);
             ICommand cancelCommand = new CloseModalCommand(modalNavigationStore);
             MotorsportDriverDetailsFormViewModel = new MotorsportDriverDetailsFormViewModel(submitCommand, cancelCommand);
         }
