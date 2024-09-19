@@ -8,7 +8,6 @@ namespace MotorsportDrivers.Domain.Models
 {
     public class MotorsportDriver
     {   
-
         public Guid Id { get; }
         public string Name { get; }
         public bool IsWorldChampion { get; }
