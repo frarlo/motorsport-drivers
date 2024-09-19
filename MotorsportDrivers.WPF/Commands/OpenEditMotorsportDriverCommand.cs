@@ -1,4 +1,4 @@
-﻿using MotorsportDrivers.WPF.Models;
+﻿using MotorsportDrivers.Domain.Models;
 using MotorsportDrivers.WPF.Stores;
 using MotorsportDrivers.WPF.ViewModels;
 using System;

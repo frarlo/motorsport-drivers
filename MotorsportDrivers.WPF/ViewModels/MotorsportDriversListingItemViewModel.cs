@@ -1,5 +1,5 @@
 ﻿using MotorsportDrivers.WPF.Commands;
-using MotorsportDrivers.WPF.Models;
+using MotorsportDrivers.Domain.Models;
 using MotorsportDrivers.WPF.Stores;
 using System;
 using System.Collections.Generic;

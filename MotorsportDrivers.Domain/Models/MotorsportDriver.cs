@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MotorsportDrivers.WPF.Models
+namespace MotorsportDrivers.Domain.Models
 {
     public class MotorsportDriver
-    {
+    {   
+
         public Guid Id { get; }
         public string Name { get; }
         public bool IsWorldChampion { get; }
