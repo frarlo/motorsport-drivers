@@ -25,6 +25,7 @@ namespace MotorsportDrivers.WPF.ViewModels
             MotorsportDriver = motorsportDriver;
 
             EditCommand = new OpenEditMotorsportDriverCommand(this, motorsportDriversStore, modalNavigationStore);
+            DeleteCommand = new DeleteMotorsportDriverCommand(this, motorsportDriversStore);
         }
 
         public void Update(MotorsportDriver motorsportDriver)

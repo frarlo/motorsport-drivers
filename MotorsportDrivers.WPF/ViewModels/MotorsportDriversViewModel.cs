@@ -20,13 +20,11 @@ namespace MotorsportDrivers.WPF.ViewModels
 
         public MotorsportDriversViewModel(MotorsportDriversStore motorsportDriversStore, SelectedMotorsportDriverStore selectedMotorsportDriverStore, ModalNavigationStore modalNavigationStore)
         {
-            MotorsportDriversListingViewModel = new MotorsportDriversListingViewModel(motorsportDriversStore, selectedMotorsportDriverStore, modalNavigationStore);
+            MotorsportDriversListingViewModel = MotorsportDriversListingViewModel.LoadViewModel(motorsportDriversStore, selectedMotorsportDriverStore, modalNavigationStore);
 
             MotorsportDriversDetailsViewModel = new MotorsportDriversDetailsViewModel(selectedMotorsportDriverStore);
 
             AddMotorsportDriversCommand = new OpenAddMotorsportDriverCommand(motorsportDriversStore, modalNavigationStore);
-
         }
-
     }
 }

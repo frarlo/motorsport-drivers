@@ -37,23 +37,58 @@ namespace MotorsportDrivers.WPF.ViewModels
             }
         }
 
-        public MotorsportDriversListingViewModel(MotorsportDriversStore motorsportDriversStore, SelectedMotorsportDriverStore selectedMotorsportDriverStore, ModalNavigationStore modalNavigationStore) {
+        public ICommand LoadMotorsportDriversCommand { get; }
 
+        public MotorsportDriversListingViewModel(
+            MotorsportDriversStore motorsportDriversStore,
+            SelectedMotorsportDriverStore selectedMotorsportDriverStore,
+            ModalNavigationStore modalNavigationStore) {
 
             _motorsportDriversStore = motorsportDriversStore;
             _selectedMotorsportDriverStore = selectedMotorsportDriverStore;
             _modalNavigationStore = modalNavigationStore;
             _motorsportDriversListingItemViewModels = new ObservableCollection<MotorsportDriversListingItemViewModel>();
 
+            LoadMotorsportDriversCommand = new LoadMotorsportDriversCommand(motorsportDriversStore);
+
+
+            _motorsportDriversStore.MotorsportDriversLoadedEvent += MotorsportDriversStore_MotorsportDriversLoadedEvent;
             _motorsportDriversStore.MotorsportDriverCreatedEvent += MotorsportDriversStore_MotorsportDriverCreatedEvent;
             _motorsportDriversStore.MotorsportDriverUpdatedEvent += MotorsportDriversStore_MotorsportDriverUpdatedEvent;
+            _motorsportDriversStore.MotorsportDriverDeletedEvent += MotorsportDriversStore_MotorsportDriverDeletedEvent;
 
+        }
+
+
+        private void MotorsportDriversStore_MotorsportDriversLoadedEvent()
+        {
+            _motorsportDriversListingItemViewModels.Clear();
+
+            foreach(MotorsportDriver motorsportDriver in _motorsportDriversStore.MotorsportDrivers)
+            {
+                CreateMotorsportDriver(motorsportDriver);
+            }
+        }
+
+        public static MotorsportDriversListingViewModel LoadViewModel(
+            MotorsportDriversStore motorsportDriversStore,
+            SelectedMotorsportDriverStore selectedMotorsportDriverStore,
+            ModalNavigationStore modalNavigationStore)
+        {
+            MotorsportDriversListingViewModel viewModel = new MotorsportDriversListingViewModel(motorsportDriversStore, selectedMotorsportDriverStore, modalNavigationStore);
+
+            viewModel.LoadMotorsportDriversCommand.Execute(null);
+
+            return viewModel;
         }
 
         protected override void Dispose()
         {
+
+            _motorsportDriversStore.MotorsportDriversLoadedEvent -= MotorsportDriversStore_MotorsportDriversLoadedEvent;
             _motorsportDriversStore.MotorsportDriverCreatedEvent -= MotorsportDriversStore_MotorsportDriverCreatedEvent;
             _motorsportDriversStore.MotorsportDriverUpdatedEvent -= MotorsportDriversStore_MotorsportDriverUpdatedEvent;
+            _motorsportDriversStore.MotorsportDriverDeletedEvent -= MotorsportDriversStore_MotorsportDriverDeletedEvent;
 
             base.Dispose();
         }
@@ -74,13 +109,26 @@ namespace MotorsportDrivers.WPF.ViewModels
         private void MotorsportDriversStore_MotorsportDriverUpdatedEvent(MotorsportDriver motorsportDriver)
         {
             MotorsportDriversListingItemViewModel motorsportDriverViewModel =
-            _motorsportDriversListingItemViewModels.FirstOrDefault(d => d.MotorsportDriver.Id == motorsportDriver.Id);
+                _motorsportDriversListingItemViewModels.FirstOrDefault(d => d.MotorsportDriver.Id == motorsportDriver.Id);
 
             if (motorsportDriverViewModel != null)
             {
                 motorsportDriverViewModel.Update(motorsportDriver);
             }
             
+        }
+
+        private void MotorsportDriversStore_MotorsportDriverDeletedEvent(Guid id)
+        {
+            MotorsportDriversListingItemViewModel itemViewModel =
+                _motorsportDriversListingItemViewModels.FirstOrDefault(d => d.MotorsportDriver?.Id == id);
+
+            if(itemViewModel != null)
+            {
+                _motorsportDriversListingItemViewModels.Remove(itemViewModel);
+            }
+
+
         }
 
     }

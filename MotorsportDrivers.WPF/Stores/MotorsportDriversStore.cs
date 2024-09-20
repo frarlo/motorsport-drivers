@@ -15,6 +15,14 @@ namespace MotorsportDrivers.WPF.Stores
         private readonly ICreateMotorsportDriverCommand _createMotorsportDriverCommand;
         private readonly IUpdateMotorsportDriverCommand _updateMotorsportDriverCommand;
         private readonly IDeleteMotorsportDriverCommand _deleteMotorsportDriverCommand;
+        private readonly List<MotorsportDriver> _motorsportDrivers;
+
+        public event Action MotorsportDriversLoadedEvent;
+        public event Action<MotorsportDriver> MotorsportDriverCreatedEvent;
+        public event Action<MotorsportDriver> MotorsportDriverUpdatedEvent;
+        public event Action<Guid> MotorsportDriverDeletedEvent;
+
+        public IEnumerable<MotorsportDriver> MotorsportDrivers => _motorsportDrivers;
 
         public MotorsportDriversStore(
             IGetAllMotorsportDriversQuery getAllMotorsportDriversQuery,
@@ -26,14 +34,25 @@ namespace MotorsportDrivers.WPF.Stores
             _createMotorsportDriverCommand = createMotorsportDriverCommand;
             _updateMotorsportDriverCommand = updateMotorsportDriverCommand;
             _deleteMotorsportDriverCommand = deleteMotorsportDriverCommand;
+            _motorsportDrivers = new List<MotorsportDriver>();
         }
 
-        public event Action<MotorsportDriver> MotorsportDriverCreatedEvent;
-        public event Action<MotorsportDriver> MotorsportDriverUpdatedEvent;
+        public async Task Load()
+        {
+            IEnumerable<MotorsportDriver> motorsportDrivers = await _getAllMotorsportDriversQuery.Execute();
+
+            _motorsportDrivers.Clear();
+            _motorsportDrivers.AddRange(motorsportDrivers);
+
+            MotorsportDriversLoadedEvent?.Invoke();
+
+        }
 
         public async Task Create(MotorsportDriver motorsportDriver)
         {
             await _createMotorsportDriverCommand.Execute(motorsportDriver);
+
+            _motorsportDrivers.Add(motorsportDriver);
 
             MotorsportDriverCreatedEvent?.Invoke(motorsportDriver);
         }
@@ -42,7 +61,27 @@ namespace MotorsportDrivers.WPF.Stores
         {
             await _updateMotorsportDriverCommand.Execute(motorsportDriver);
 
+            int currentIndex = _motorsportDrivers.FindIndex(d => d.Id == motorsportDriver.Id);
+
+            if(currentIndex != -1)
+            {
+                _motorsportDrivers[currentIndex] = motorsportDriver;
+            }
+            else
+            {
+                _motorsportDrivers.Add(motorsportDriver);
+            }
+
             MotorsportDriverUpdatedEvent?.Invoke(motorsportDriver);
+        }
+
+        public async Task Delete(Guid id)
+        {
+            await _deleteMotorsportDriverCommand.Execute(id);
+
+            _motorsportDrivers.RemoveAll(d => d.Id == id); 
+
+            MotorsportDriverDeletedEvent?.Invoke(id);
         }
     }
 }
