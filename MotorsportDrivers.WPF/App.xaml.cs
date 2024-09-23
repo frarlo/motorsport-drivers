@@ -51,7 +51,8 @@ namespace MotorsportDrivers.WPF
                 context.Database.Migrate();
             }
 
-            MotorsportDriversViewModel motorsportDriversViewModel = new MotorsportDriversViewModel(
+
+            MotorsportDriversViewModel motorsportDriversViewModel = MotorsportDriversViewModel.LoadViewModel(
                 _motorsportDriversStore,
                 _selectedMotorsportDriverStore,
                 _modalNavigationStore);

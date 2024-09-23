@@ -37,7 +37,7 @@ namespace MotorsportDrivers.WPF.ViewModels
             }
         }
 
-        public ICommand LoadMotorsportDriversCommand { get; }
+        
 
         public MotorsportDriversListingViewModel(
             MotorsportDriversStore motorsportDriversStore,
@@ -48,9 +48,6 @@ namespace MotorsportDrivers.WPF.ViewModels
             _selectedMotorsportDriverStore = selectedMotorsportDriverStore;
             _modalNavigationStore = modalNavigationStore;
             _motorsportDriversListingItemViewModels = new ObservableCollection<MotorsportDriversListingItemViewModel>();
-
-            LoadMotorsportDriversCommand = new LoadMotorsportDriversCommand(motorsportDriversStore);
-
 
             _motorsportDriversStore.MotorsportDriversLoadedEvent += MotorsportDriversStore_MotorsportDriversLoadedEvent;
             _motorsportDriversStore.MotorsportDriverCreatedEvent += MotorsportDriversStore_MotorsportDriverCreatedEvent;
@@ -70,17 +67,7 @@ namespace MotorsportDrivers.WPF.ViewModels
             }
         }
 
-        public static MotorsportDriversListingViewModel LoadViewModel(
-            MotorsportDriversStore motorsportDriversStore,
-            SelectedMotorsportDriverStore selectedMotorsportDriverStore,
-            ModalNavigationStore modalNavigationStore)
-        {
-            MotorsportDriversListingViewModel viewModel = new MotorsportDriversListingViewModel(motorsportDriversStore, selectedMotorsportDriverStore, modalNavigationStore);
 
-            viewModel.LoadMotorsportDriversCommand.Execute(null);
-
-            return viewModel;
-        }
 
         protected override void Dispose()
         {
