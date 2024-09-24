@@ -56,6 +56,22 @@ namespace MotorsportDrivers.WPF.ViewModels
             }
         }
 
+        private bool _isSubmitting;
+
+        public bool IsSubmitting
+        {
+            get
+            {
+                return _isSubmitting;
+            }
+
+            set
+            {
+                _isSubmitting = value;
+                OnPropertyChanged(nameof(IsSubmitting));
+            }
+        }
+
         public bool CanSubmit => !string.IsNullOrEmpty(Name);
 
         public ICommand SubmitCommand { get; }

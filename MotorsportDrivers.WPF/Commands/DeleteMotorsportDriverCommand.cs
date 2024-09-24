@@ -26,6 +26,8 @@ namespace MotorsportDrivers.WPF.Commands
 
         public override async Task ExecuteAsync(object? parameter)
         {
+            _motorsportDriversListingItemViewModel.IsDeleting = true;
+
             MotorsportDriver motorsportDriver = _motorsportDriversListingItemViewModel.MotorsportDriver;
 
             // TODO - Proper exception handling.
@@ -36,6 +38,10 @@ namespace MotorsportDrivers.WPF.Commands
             catch (Exception ex)
             {
                 throw;
+            }
+            finally
+            {
+                _motorsportDriversListingItemViewModel.IsDeleting = false;
             }
 
 

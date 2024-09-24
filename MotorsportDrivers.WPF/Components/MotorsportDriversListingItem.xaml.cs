@@ -29,5 +29,7 @@ namespace MotorsportDrivers.WPF.Components
         {
             dropdown.IsOpen = false;
         }
+
+
     }
 }

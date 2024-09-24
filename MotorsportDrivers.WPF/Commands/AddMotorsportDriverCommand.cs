@@ -27,6 +27,9 @@ namespace MotorsportDrivers.WPF.Commands
 
             MotorsportDriverDetailsFormViewModel formViewModel = _addMotorsportDriverViewModel.MotorsportDriverDetailsFormViewModel;
 
+            formViewModel.IsSubmitting = true;
+
+
             MotorsportDriver motorsportDriver = new MotorsportDriver(
                 Guid.NewGuid(),
                 formViewModel.Name,
@@ -43,6 +46,10 @@ namespace MotorsportDrivers.WPF.Commands
             catch (Exception ex)
             {
                 throw;
+            }
+            finally
+            {
+                formViewModel.IsSubmitting = false;
             }
 
         }

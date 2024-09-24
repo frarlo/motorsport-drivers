@@ -29,6 +29,8 @@ namespace MotorsportDrivers.WPF.Commands
 
             MotorsportDriverDetailsFormViewModel formViewModel = _editMotorsportDriverViewModel.MotorsportDriverDetailsFormViewModel;
 
+            formViewModel.IsSubmitting = true;
+
             MotorsportDriver motorsportDriver = new MotorsportDriver(
                 _editMotorsportDriverViewModel.MotorsportDriverId,
                 formViewModel.Name,
@@ -38,6 +40,8 @@ namespace MotorsportDrivers.WPF.Commands
             // TODO - Exception control pending.
             try
             {
+                
+
                 await _motorsportDriversStore.Update(motorsportDriver);
 
                 _modalNavigationStore.Close();
@@ -45,6 +49,10 @@ namespace MotorsportDrivers.WPF.Commands
             catch (Exception ex)
             {
                 throw;
+            }
+            finally
+            {
+                formViewModel.IsSubmitting = false;
             }
 
             _modalNavigationStore.Close();

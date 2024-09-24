@@ -24,8 +24,6 @@ namespace MotorsportDrivers.EntityFramework.Queries
             // 'Using' allow us to dispose the context factory once we have finished working with it:
             using(MotorsportDriversDbContext context = _contextFactory.Create())
             {
-                // Forcing the delay of the task in order to simulate loading time:
-                await Task.Delay(3000);
 
                 IEnumerable<MotorsportDriverDto> motorsportDriverDtos = await context.MotorsportDrivers.ToListAsync();
 
