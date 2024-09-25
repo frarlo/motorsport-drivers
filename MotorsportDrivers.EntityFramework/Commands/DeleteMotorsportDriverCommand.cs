@@ -21,6 +21,7 @@ namespace MotorsportDrivers.EntityFramework.Commands
 
         public async Task Execute(Guid id)
         {
+
             using (MotorsportDriversDbContext context = _contextFactory.Create())
             {
 

@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:MotorsportDrivers.WPF.Views"
              xmlns:components="clr-namespace:MotorsportDrivers.WPF.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Width="400"
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />

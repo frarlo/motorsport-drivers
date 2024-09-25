@@ -29,6 +29,7 @@ namespace MotorsportDrivers.WPF.Commands
 
             MotorsportDriverDetailsFormViewModel formViewModel = _editMotorsportDriverViewModel.MotorsportDriverDetailsFormViewModel;
 
+            formViewModel.ErrorMessage = null;
             formViewModel.IsSubmitting = true;
 
             MotorsportDriver motorsportDriver = new MotorsportDriver(
@@ -37,10 +38,8 @@ namespace MotorsportDrivers.WPF.Commands
                 formViewModel.IsWorldChampion,
                 formViewModel.Country);
 
-            // TODO - Exception control pending.
             try
             {
-                
 
                 await _motorsportDriversStore.Update(motorsportDriver);
 
@@ -48,7 +47,7 @@ namespace MotorsportDrivers.WPF.Commands
             }
             catch (Exception ex)
             {
-                throw;
+                formViewModel.ErrorMessage = "Failed to update Motorsport driver. Please, try again later.";
             }
             finally
             {

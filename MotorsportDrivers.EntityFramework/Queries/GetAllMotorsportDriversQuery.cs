@@ -21,8 +21,9 @@ namespace MotorsportDrivers.EntityFramework.Queries
 
         public async Task<IEnumerable<MotorsportDriver>> Execute()
         {
+
             // 'Using' allow us to dispose the context factory once we have finished working with it:
-            using(MotorsportDriversDbContext context = _contextFactory.Create())
+            using (MotorsportDriversDbContext context = _contextFactory.Create())
             {
 
                 IEnumerable<MotorsportDriverDto> motorsportDriverDtos = await context.MotorsportDrivers.ToListAsync();

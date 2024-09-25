@@ -27,8 +27,8 @@ namespace MotorsportDrivers.WPF.Commands
 
             MotorsportDriverDetailsFormViewModel formViewModel = _addMotorsportDriverViewModel.MotorsportDriverDetailsFormViewModel;
 
+            formViewModel.ErrorMessage = null;
             formViewModel.IsSubmitting = true;
-
 
             MotorsportDriver motorsportDriver = new MotorsportDriver(
                 Guid.NewGuid(),
@@ -36,7 +36,6 @@ namespace MotorsportDrivers.WPF.Commands
                 formViewModel.IsWorldChampion,
                 formViewModel.Country);
 
-            // TODO - Exception control pending.
             try
             {
                 await _motorsportDriversStore.Create(motorsportDriver);
@@ -45,7 +44,7 @@ namespace MotorsportDrivers.WPF.Commands
             }
             catch (Exception ex)
             {
-                throw;
+                formViewModel.ErrorMessage = "Failed to add motorsport driver. Please, try again later.";
             }
             finally
             {

@@ -27,17 +27,17 @@ namespace MotorsportDrivers.WPF.Commands
         public override async Task ExecuteAsync(object? parameter)
         {
             _motorsportDriversListingItemViewModel.IsDeleting = true;
+            _motorsportDriversListingItemViewModel.ErrorMessage = null;
 
             MotorsportDriver motorsportDriver = _motorsportDriversListingItemViewModel.MotorsportDriver;
 
-            // TODO - Proper exception handling.
             try
             {
                 await _motorsportDriversStore.Delete(motorsportDriver.Id);
             }
             catch (Exception ex)
             {
-                throw;
+                _motorsportDriversListingItemViewModel.ErrorMessage = "Failed to delete Motorsport driver. Please, try again later.";
             }
             finally
             {

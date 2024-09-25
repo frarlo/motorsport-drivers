@@ -22,8 +22,8 @@ namespace MotorsportDrivers.WPF.Commands
         public override async Task ExecuteAsync(object? parameter)
         {
 
+            _motorsportDriversViewModel.ErrorMessage = null;
             _motorsportDriversViewModel.IsLoading = true;
-
 
             try
             {
@@ -31,7 +31,7 @@ namespace MotorsportDrivers.WPF.Commands
             }
             catch (Exception ex)
             {
-                throw;
+                _motorsportDriversViewModel.ErrorMessage = "Failed to load Motorsport drivers. Please restart the application.";
             }
             finally
             {
