@@ -45,7 +45,6 @@ namespace MotorsportDrivers.WPF.Stores
             _motorsportDrivers.AddRange(motorsportDrivers);
 
             MotorsportDriversLoadedEvent?.Invoke();
-
         }
 
         public async Task Create(MotorsportDriver motorsportDriver)

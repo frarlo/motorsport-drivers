@@ -11,13 +11,10 @@ namespace MotorsportDrivers.WPF.ViewModels
 {
     public class MotorsportDriversViewModel : ViewModelBase
     {
-
         public MotorsportDriversListingViewModel MotorsportDriversListingViewModel {  get; }
-
         public MotorsportDriversDetailsViewModel MotorsportDriversDetailsViewModel { get; }
 
         private bool _isLoading = false;
-
         public bool IsLoading
         {
             get
@@ -32,7 +29,6 @@ namespace MotorsportDrivers.WPF.ViewModels
         }
 
         private string _errorMessage;
-
         public string ErrorMessage
         {
             get
@@ -56,7 +52,6 @@ namespace MotorsportDrivers.WPF.ViewModels
         public MotorsportDriversViewModel(MotorsportDriversStore motorsportDriversStore, SelectedMotorsportDriverStore selectedMotorsportDriverStore, ModalNavigationStore modalNavigationStore)
         {
             MotorsportDriversListingViewModel = new MotorsportDriversListingViewModel(motorsportDriversStore, selectedMotorsportDriverStore, modalNavigationStore);
-
             MotorsportDriversDetailsViewModel = new MotorsportDriversDetailsViewModel(selectedMotorsportDriverStore);
 
             LoadMotorsportDriversCommand = new LoadMotorsportDriversCommand(this, motorsportDriversStore);
@@ -74,7 +69,6 @@ namespace MotorsportDrivers.WPF.ViewModels
 
             return viewModel;
         }
-
     
     }
 }

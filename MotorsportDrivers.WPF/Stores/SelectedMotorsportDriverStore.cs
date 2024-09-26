@@ -19,7 +19,6 @@ namespace MotorsportDrivers.WPF.Stores
             {
                 return _selectedMotorsportDriver;
             }
-
             set
             {
                 _selectedMotorsportDriver = value;
@@ -34,6 +33,12 @@ namespace MotorsportDrivers.WPF.Stores
             _motorsportDriversStore = motorsportDriversStore;
 
             _motorsportDriversStore.MotorsportDriverUpdatedEvent += _motorsportDriversStore_MotorsportDriverUpdatedEvent;
+            _motorsportDriversStore.MotorsportDriverCreatedEvent += _motorsportDriversStore_MotorsportDriverCreatedEvent;
+        }
+
+        private void _motorsportDriversStore_MotorsportDriverCreatedEvent(MotorsportDriver motorsportDriver)
+        {
+            SelectedMotorsportDriver = motorsportDriver;
         }
 
         private void _motorsportDriversStore_MotorsportDriverUpdatedEvent(MotorsportDriver motorsportDriver)
@@ -43,5 +48,6 @@ namespace MotorsportDrivers.WPF.Stores
                 SelectedMotorsportDriver = motorsportDriver;
             }
         }
+
     }
 }

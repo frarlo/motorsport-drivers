@@ -9,7 +9,7 @@ namespace MotorsportDrivers.Domain.Commands
 {
     public interface ICreateMotorsportDriverCommand
     {
-
         Task Execute(MotorsportDriver motorsportDriver);
     }
+
 }

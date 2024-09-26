@@ -24,9 +24,9 @@ namespace MotorsportDrivers.WPF.Commands
             _motorsportDriversStore = motorsportDriversStore;
             _modalNavigationStore = modalNavigationStore;
         }
+
         public override async Task ExecuteAsync(object? parameter)
         {
-
             MotorsportDriverDetailsFormViewModel formViewModel = _editMotorsportDriverViewModel.MotorsportDriverDetailsFormViewModel;
 
             formViewModel.ErrorMessage = null;
@@ -53,8 +53,8 @@ namespace MotorsportDrivers.WPF.Commands
             {
                 formViewModel.IsSubmitting = false;
             }
-
             _modalNavigationStore.Close();
         }
+
     }
 }

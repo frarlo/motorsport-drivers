@@ -28,5 +28,4 @@ namespace MotorsportDrivers.WPF.Commands
         }
 
     }
-    
 }

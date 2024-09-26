@@ -22,5 +22,6 @@ namespace MotorsportDrivers.WPF.Commands
         {
             CanExecuteChanged?.Invoke(this,new EventArgs());
         }
+
     }
 }

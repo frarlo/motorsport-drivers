@@ -14,6 +14,5 @@ namespace MotorsportDrivers.EntityFramework.DTOs
         public bool IsWorldChampion { get; set; }
         public string Country { get; set; }
 
-
     }
 }

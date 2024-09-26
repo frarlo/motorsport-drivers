@@ -17,7 +17,6 @@ namespace MotorsportDrivers.WPF.ViewModels
         public string Name => MotorsportDriver.Name;
 
         private bool _isDeleting;
-
         public bool IsDeleting
         {
             get
@@ -66,5 +65,6 @@ namespace MotorsportDrivers.WPF.ViewModels
 
             OnPropertyChanged(nameof(Name));
         }
+
     }
 }

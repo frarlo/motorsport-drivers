@@ -9,9 +9,7 @@ namespace MotorsportDrivers.Domain.Queries
 {
     public interface IGetAllMotorsportDriversQuery
     {
-
         Task<IEnumerable<MotorsportDriver>> Execute();
-
-
     }
+
 }

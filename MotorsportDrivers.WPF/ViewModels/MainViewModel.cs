@@ -9,7 +9,6 @@ namespace MotorsportDrivers.WPF.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-
         private readonly ModalNavigationStore _modalNavigationStore;
 
         public ViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
@@ -22,8 +21,6 @@ namespace MotorsportDrivers.WPF.ViewModels
             MotorsportDriversViewModel = motorsportDriversViewModel;
 
             _modalNavigationStore.CurrentViewModelChanged += ModalNavigationStore_CurrentViewModelChanged;
-
-            // TODO - Delete this hardcoded line: _modalNavigationStore.CurrentViewModel = new AddMotorsportDriverViewModel(); //
         }
 
         protected override void Dispose()
@@ -37,5 +34,6 @@ namespace MotorsportDrivers.WPF.ViewModels
             OnPropertyChanged(nameof(CurrentModalViewModel));
             OnPropertyChanged(nameof(IsModalOpen));
         }
+
     }
 }

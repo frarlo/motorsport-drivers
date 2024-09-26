@@ -24,7 +24,6 @@ namespace MotorsportDrivers.WPF.Commands
 
         public override async Task ExecuteAsync(object? parameter)
         {
-
             MotorsportDriverDetailsFormViewModel formViewModel = _addMotorsportDriverViewModel.MotorsportDriverDetailsFormViewModel;
 
             formViewModel.ErrorMessage = null;
@@ -52,5 +51,6 @@ namespace MotorsportDrivers.WPF.Commands
             }
 
         }
+
     }
 }

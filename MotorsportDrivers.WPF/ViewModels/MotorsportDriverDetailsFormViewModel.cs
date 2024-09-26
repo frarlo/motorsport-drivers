@@ -9,9 +9,7 @@ namespace MotorsportDrivers.WPF.ViewModels
 {
     public class MotorsportDriverDetailsFormViewModel : ViewModelBase
     {
-
         private string _name;
-
         public string Name
         {
             get
@@ -27,7 +25,6 @@ namespace MotorsportDrivers.WPF.ViewModels
         }
 
         private bool _isWorldChampion;
-
         public bool IsWorldChampion
         {
             get
@@ -42,7 +39,6 @@ namespace MotorsportDrivers.WPF.ViewModels
         }
 
         private string _country;
-
         public string Country
         {
             get
@@ -57,7 +53,6 @@ namespace MotorsportDrivers.WPF.ViewModels
         }
 
         private bool _isSubmitting;
-
         public bool IsSubmitting
         {
             get
@@ -73,7 +68,6 @@ namespace MotorsportDrivers.WPF.ViewModels
         }
 
         public bool CanSubmit => !string.IsNullOrEmpty(Name);
-
 
         private string _errorMessage;
         public string ErrorMessage
@@ -96,11 +90,11 @@ namespace MotorsportDrivers.WPF.ViewModels
 
         public ICommand CancelCommand { get; }
 
-
         public MotorsportDriverDetailsFormViewModel(ICommand submitCommand, ICommand cancelCommand)
         {
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
         }
+
     }
 }

@@ -11,7 +11,6 @@ namespace MotorsportDrivers.EntityFramework.Commands
 {
     public class DeleteMotorsportDriverCommand : IDeleteMotorsportDriverCommand
     {
-
         private readonly MotorsportDriversDbContextFactory _contextFactory;
 
         public DeleteMotorsportDriverCommand(MotorsportDriversDbContextFactory contextFactory)
@@ -35,5 +34,6 @@ namespace MotorsportDrivers.EntityFramework.Commands
                 await context.SaveChangesAsync();
             }
         }
+
     }
 }

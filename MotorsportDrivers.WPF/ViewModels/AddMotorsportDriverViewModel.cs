@@ -11,7 +11,6 @@ namespace MotorsportDrivers.WPF.ViewModels
 {
     public class AddMotorsportDriverViewModel : ViewModelBase
     {
-
         public MotorsportDriverDetailsFormViewModel MotorsportDriverDetailsFormViewModel { get; }
 
         public AddMotorsportDriverViewModel(MotorsportDriversStore motorsportDriversStore, ModalNavigationStore modalNavigationStore)

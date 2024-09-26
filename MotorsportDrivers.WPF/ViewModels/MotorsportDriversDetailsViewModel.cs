@@ -10,17 +10,13 @@ namespace MotorsportDrivers.WPF.ViewModels
 {
     public class MotorsportDriversDetailsViewModel : ViewModelBase
     {
-
         private readonly SelectedMotorsportDriverStore _selectedMotorsportDriverStore;
-
-        private MotorsportDriver SelectedMotorsportDriver => _selectedMotorsportDriverStore.SelectedMotorsportDriver; 
-
+        private MotorsportDriver SelectedMotorsportDriver => _selectedMotorsportDriverStore.SelectedMotorsportDriver;
 
         public bool HasSelectedMotorsportDriver => SelectedMotorsportDriver != null;
         public string Name => SelectedMotorsportDriver?.Name ?? "Unknown";
         public string IsWorldChampionDisplay => (SelectedMotorsportDriver?.IsWorldChampion ?? false) ? "Yes" : "No";
         public string Country => SelectedMotorsportDriver?.Country ?? "Unknown";
-
 
         public MotorsportDriversDetailsViewModel(SelectedMotorsportDriverStore selectedMotorsportDriverStore)
         {

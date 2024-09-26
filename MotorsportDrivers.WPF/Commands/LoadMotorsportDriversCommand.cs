@@ -21,7 +21,6 @@ namespace MotorsportDrivers.WPF.Commands
 
         public override async Task ExecuteAsync(object? parameter)
         {
-
             _motorsportDriversViewModel.ErrorMessage = null;
             _motorsportDriversViewModel.IsLoading = true;
 
@@ -39,5 +38,6 @@ namespace MotorsportDrivers.WPF.Commands
             }
             
         }
+
     }
 }

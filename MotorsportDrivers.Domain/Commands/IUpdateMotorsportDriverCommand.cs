@@ -10,6 +10,6 @@ namespace MotorsportDrivers.Domain.Commands
     public interface IUpdateMotorsportDriverCommand
     {
         Task Execute(MotorsportDriver motorsportDriver);
-
     }
+
 }

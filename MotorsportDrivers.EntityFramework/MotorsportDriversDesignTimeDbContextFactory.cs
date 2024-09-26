@@ -14,5 +14,6 @@ namespace MotorsportDrivers.EntityFramework
         {
             return new MotorsportDriversDbContext(new DbContextOptionsBuilder().UseSqlite("Data Source=MotorsportDrivers.db").Options);
         }
+
     }
 }

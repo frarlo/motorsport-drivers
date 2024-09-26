@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Collections.Specialized;
 
 namespace MotorsportDrivers.WPF.ViewModels
 {
@@ -20,24 +21,18 @@ namespace MotorsportDrivers.WPF.ViewModels
 
         public IEnumerable<MotorsportDriversListingItemViewModel> MotorsportDriversListingItemViewModels => _motorsportDriversListingItemViewModels;
 
-        private MotorsportDriversListingItemViewModel _selectedMotorsportDriverListingItemViewModel;
-
         public MotorsportDriversListingItemViewModel SelectedMotorsportDriverListingItemViewModel
         {
             get
             {
-                return _selectedMotorsportDriverListingItemViewModel;
+                return _motorsportDriversListingItemViewModels.
+                    FirstOrDefault(d => d.MotorsportDriver?.Id == _selectedMotorsportDriverStore.SelectedMotorsportDriver?.Id);
             }
             set
             {
-                _selectedMotorsportDriverListingItemViewModel = value;
-                OnPropertyChanged(nameof(SelectedMotorsportDriverListingItemViewModel));
-
-                _selectedMotorsportDriverStore.SelectedMotorsportDriver = _selectedMotorsportDriverListingItemViewModel?.MotorsportDriver;
+                _selectedMotorsportDriverStore.SelectedMotorsportDriver = value?.MotorsportDriver;
             }
         }
-
-        
 
         public MotorsportDriversListingViewModel(
             MotorsportDriversStore motorsportDriversStore,
@@ -49,13 +44,13 @@ namespace MotorsportDrivers.WPF.ViewModels
             _modalNavigationStore = modalNavigationStore;
             _motorsportDriversListingItemViewModels = new ObservableCollection<MotorsportDriversListingItemViewModel>();
 
+            _selectedMotorsportDriverStore.SelectedMotorsportDriverChanged += _selectedMotorsportDriverStore_SelectedMotorsportDriverChanged;
             _motorsportDriversStore.MotorsportDriversLoadedEvent += MotorsportDriversStore_MotorsportDriversLoadedEvent;
             _motorsportDriversStore.MotorsportDriverCreatedEvent += MotorsportDriversStore_MotorsportDriverCreatedEvent;
             _motorsportDriversStore.MotorsportDriverUpdatedEvent += MotorsportDriversStore_MotorsportDriverUpdatedEvent;
             _motorsportDriversStore.MotorsportDriverDeletedEvent += MotorsportDriversStore_MotorsportDriverDeletedEvent;
-
+            _motorsportDriversListingItemViewModels.CollectionChanged += _motorsportDriversListingItemViewModels_CollectionChanged;
         }
-
 
         private void MotorsportDriversStore_MotorsportDriversLoadedEvent()
         {
@@ -67,15 +62,14 @@ namespace MotorsportDrivers.WPF.ViewModels
             }
         }
 
-
-
         protected override void Dispose()
         {
-
             _motorsportDriversStore.MotorsportDriversLoadedEvent -= MotorsportDriversStore_MotorsportDriversLoadedEvent;
             _motorsportDriversStore.MotorsportDriverCreatedEvent -= MotorsportDriversStore_MotorsportDriverCreatedEvent;
             _motorsportDriversStore.MotorsportDriverUpdatedEvent -= MotorsportDriversStore_MotorsportDriverUpdatedEvent;
             _motorsportDriversStore.MotorsportDriverDeletedEvent -= MotorsportDriversStore_MotorsportDriverDeletedEvent;
+            _selectedMotorsportDriverStore.SelectedMotorsportDriverChanged -= _selectedMotorsportDriverStore_SelectedMotorsportDriverChanged;
+            _motorsportDriversListingItemViewModels.CollectionChanged -= _motorsportDriversListingItemViewModels_CollectionChanged;
 
             base.Dispose();
         }
@@ -92,7 +86,6 @@ namespace MotorsportDrivers.WPF.ViewModels
             _motorsportDriversListingItemViewModels.Add(itemViewModel);
         }
 
-
         private void MotorsportDriversStore_MotorsportDriverUpdatedEvent(MotorsportDriver motorsportDriver)
         {
             MotorsportDriversListingItemViewModel motorsportDriverViewModel =
@@ -102,7 +95,6 @@ namespace MotorsportDrivers.WPF.ViewModels
             {
                 motorsportDriverViewModel.Update(motorsportDriver);
             }
-            
         }
 
         private void MotorsportDriversStore_MotorsportDriverDeletedEvent(Guid id)
@@ -114,8 +106,16 @@ namespace MotorsportDrivers.WPF.ViewModels
             {
                 _motorsportDriversListingItemViewModels.Remove(itemViewModel);
             }
+        }
 
+        private void _motorsportDriversListingItemViewModels_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(SelectedMotorsportDriverListingItemViewModel));
+        }
 
+        private void _selectedMotorsportDriverStore_SelectedMotorsportDriverChanged()
+        {
+            OnPropertyChanged(nameof(SelectedMotorsportDriverListingItemViewModel));
         }
 
     }

@@ -28,5 +28,6 @@ namespace MotorsportDrivers.WPF.ViewModels
                 Country = motorsportDriver.Country
             };
         }
+
     }
 }

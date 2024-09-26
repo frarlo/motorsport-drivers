@@ -10,11 +10,9 @@ namespace MotorsportDrivers.EntityFramework
 {
     public class MotorsportDriversDbContext : DbContext
     {
-
         public MotorsportDriversDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<MotorsportDriverDto>  MotorsportDrivers { get; set; } 
-
 
     }
 }

@@ -31,5 +31,6 @@ namespace MotorsportDrivers.EntityFramework.Queries
                 return motorsportDriverDtos.Select(d => new MotorsportDriver(d.Id, d.Name, d.IsWorldChampion, d.Country));
             }
         }
+
     }
 }

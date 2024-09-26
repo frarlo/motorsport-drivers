@@ -11,7 +11,6 @@ namespace MotorsportDrivers.WPF.Commands
 {
     public class DeleteMotorsportDriverCommand : AsyncCommandBase
     {
-            
         private readonly MotorsportDriversListingItemViewModel _motorsportDriversListingItemViewModel;
         private readonly MotorsportDriversStore _motorsportDriversStore;
 
@@ -22,7 +21,6 @@ namespace MotorsportDrivers.WPF.Commands
             _motorsportDriversListingItemViewModel = motorsportDriversListingItemViewModel;
             _motorsportDriversStore = motorsportDriversStore;
         }
-
 
         public override async Task ExecuteAsync(object? parameter)
         {
@@ -43,7 +41,6 @@ namespace MotorsportDrivers.WPF.Commands
             {
                 _motorsportDriversListingItemViewModel.IsDeleting = false;
             }
-
 
         }
     }

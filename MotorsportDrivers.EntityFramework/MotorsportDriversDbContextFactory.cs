@@ -9,7 +9,6 @@ namespace MotorsportDrivers.EntityFramework
 {
     public class MotorsportDriversDbContextFactory
     {
-        
         private readonly DbContextOptions _options;
 
         public MotorsportDriversDbContextFactory(DbContextOptions options)
@@ -21,5 +20,6 @@ namespace MotorsportDrivers.EntityFramework
         {
             return new MotorsportDriversDbContext(_options);
         }
+
     }
 }

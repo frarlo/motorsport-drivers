@@ -8,7 +8,6 @@ namespace MotorsportDrivers.WPF.Commands
 {
     public abstract class AsyncCommandBase : CommandBase
     {
-
         private bool _isExecuting;
 
         public bool IsExecuting
@@ -46,7 +45,7 @@ namespace MotorsportDrivers.WPF.Commands
             {
                 IsExecuting = false;
             }
-            
+       
         }
 
         public abstract Task ExecuteAsync(object? parameter);

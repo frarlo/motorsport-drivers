@@ -19,7 +19,6 @@ namespace MotorsportDrivers.WPF
 
     public partial class App : Application
     {
-
         private readonly IHost _host;
 
         public App()
@@ -51,7 +50,6 @@ namespace MotorsportDrivers.WPF
 
         protected override void OnStartup(StartupEventArgs e)
         {
-
             _host.Start();
 
             MotorsportDriversDbContextFactory motorsportDriversDbContextFactory = _host.Services.GetRequiredService<MotorsportDriversDbContextFactory>();

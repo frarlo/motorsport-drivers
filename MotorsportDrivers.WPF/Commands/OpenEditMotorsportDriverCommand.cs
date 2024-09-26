@@ -11,7 +11,6 @@ namespace MotorsportDrivers.WPF.Commands
 {
     public class OpenEditMotorsportDriverCommand : CommandBase
     {
-
         private readonly ModalNavigationStore _modalNavigationStore;
         private readonly MotorsportDriversListingItemViewModel _motorsportDriversListingItemViewModel;
         private readonly MotorsportDriversStore _motorsportDriversStore;
@@ -29,7 +28,6 @@ namespace MotorsportDrivers.WPF.Commands
         public override void Execute(object? parameter)
         {
             MotorsportDriver motorsportDriver = _motorsportDriversListingItemViewModel.MotorsportDriver;
-
 
             EditMotorsportDriverViewModel editMotorsportDriverViewModel = new EditMotorsportDriverViewModel(motorsportDriver, _motorsportDriversStore, _modalNavigationStore);
 

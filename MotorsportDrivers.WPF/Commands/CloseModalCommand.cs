@@ -9,7 +9,6 @@ namespace MotorsportDrivers.WPF.Commands
 {
     public class CloseModalCommand : CommandBase
     {
-
         private readonly ModalNavigationStore _modalNavigationStore;
 
         public CloseModalCommand(ModalNavigationStore modalNavigationStore)
@@ -21,5 +20,6 @@ namespace MotorsportDrivers.WPF.Commands
         {
             _modalNavigationStore.Close();
         }
+
     }
 }

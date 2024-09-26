@@ -12,9 +12,7 @@ namespace MotorsportDrivers.EntityFramework.Commands
 {
     public class CreateMotorsportDriverCommand : ICreateMotorsportDriverCommand
     {
-
         private readonly MotorsportDriversDbContextFactory _contextFactory;
-
         public CreateMotorsportDriverCommand(MotorsportDriversDbContextFactory contextFactory)
         {
             _contextFactory = contextFactory;
@@ -22,7 +20,6 @@ namespace MotorsportDrivers.EntityFramework.Commands
 
         public async Task Execute(MotorsportDriver motorsportDriver)
         {
-
             using (MotorsportDriversDbContext context = _contextFactory.Create())
             {
                 MotorsportDriverDto motorsportDriverDto = new MotorsportDriverDto()
@@ -38,5 +35,6 @@ namespace MotorsportDrivers.EntityFramework.Commands
                 await context.SaveChangesAsync();
             }
         }
+
     }
 }
