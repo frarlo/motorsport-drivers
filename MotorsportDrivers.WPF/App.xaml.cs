@@ -1,9 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using MotorsportDrivers.Domain.Commands;
 using MotorsportDrivers.Domain.Queries;
 using MotorsportDrivers.EntityFramework;
 using MotorsportDrivers.EntityFramework.Commands;
 using MotorsportDrivers.EntityFramework.Queries;
+using MotorsportDrivers.WPF.HostBuilders;
 using MotorsportDrivers.WPF.Stores;
 using MotorsportDrivers.WPF.ViewModels;
 using System.Configuration;
@@ -15,57 +19,69 @@ namespace MotorsportDrivers.WPF
 
     public partial class App : Application
     {
-        private readonly ModalNavigationStore _modalNavigationStore;
-        private readonly MotorsportDriversDbContextFactory _motorsportDriversDbContextFactory;
-        private readonly IGetAllMotorsportDriversQuery _getAllMotorsportDriversQuery;
-        private readonly ICreateMotorsportDriverCommand _createMotorsportDriverCommand;
-        private readonly IUpdateMotorsportDriverCommand _updateMotorsportDriverCommand;
-        private readonly IDeleteMotorsportDriverCommand _deleteMotorsportDriverCommand;
-        private readonly SelectedMotorsportDriverStore _selectedMotorsportDriverStore;
-        private readonly MotorsportDriversStore _motorsportDriversStore;
+
+        private readonly IHost _host;
 
         public App()
         {
-            string connectionString = "Data Source=MotorsportDrivers.db";
+            _host = Host.CreateDefaultBuilder()
+                .AddDbContext()
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddSingleton<IGetAllMotorsportDriversQuery, GetAllMotorsportDriversQuery>();
+                    services.AddSingleton<ICreateMotorsportDriverCommand, CreateMotorsportDriverCommand>();
+                    services.AddSingleton<IUpdateMotorsportDriverCommand, UpdateMotorsportDriverCommand>();
+                    services.AddSingleton<IDeleteMotorsportDriverCommand, DeleteMotorsportDriverCommand>();
 
-            _modalNavigationStore = new ModalNavigationStore();
-            _motorsportDriversDbContextFactory = new MotorsportDriversDbContextFactory(
-                new DbContextOptionsBuilder().UseSqlite(connectionString).Options);
-            _getAllMotorsportDriversQuery = new GetAllMotorsportDriversQuery(_motorsportDriversDbContextFactory);
-            _createMotorsportDriverCommand = new CreateMotorsportDriverCommand(_motorsportDriversDbContextFactory);
-            _updateMotorsportDriverCommand = new UpdateMotorsportDriverCommand(_motorsportDriversDbContextFactory);
-            _deleteMotorsportDriverCommand = new DeleteMotorsportDriverCommand(_motorsportDriversDbContextFactory);
-            _motorsportDriversStore = new MotorsportDriversStore(
-                _getAllMotorsportDriversQuery,
-                _createMotorsportDriverCommand,
-                _updateMotorsportDriverCommand,
-                _deleteMotorsportDriverCommand);
-            _selectedMotorsportDriverStore = new SelectedMotorsportDriverStore(_motorsportDriversStore);
+                    services.AddSingleton<ModalNavigationStore>();
+                    services.AddSingleton<MotorsportDriversStore>();
+                    services.AddSingleton<SelectedMotorsportDriverStore>();
+
+                    services.AddTransient<MotorsportDriversViewModel>(CreateMotorsportDriversViewModel);
+                    services.AddSingleton<MainViewModel>();
+
+                    services.AddSingleton<MainWindow>((services) => new MainWindow()
+                    {
+                        DataContext = services.GetRequiredService<MainViewModel>()
+                    });
+
+                })
+                .Build();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
 
-            using (MotorsportDriversDbContext context = _motorsportDriversDbContextFactory.Create())
+            _host.Start();
+
+            MotorsportDriversDbContextFactory motorsportDriversDbContextFactory = _host.Services.GetRequiredService<MotorsportDriversDbContextFactory>();
+
+            using (MotorsportDriversDbContext context = motorsportDriversDbContextFactory.Create())
             {
                 context.Database.Migrate();
             }
 
-
-            MotorsportDriversViewModel motorsportDriversViewModel = MotorsportDriversViewModel.LoadViewModel(
-                _motorsportDriversStore,
-                _selectedMotorsportDriverStore,
-                _modalNavigationStore);
-
-            MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel(_modalNavigationStore, motorsportDriversViewModel)
-            };
-
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
 
             base.OnStartup(e);
         }
-    }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _host.StopAsync();
+            _host.Dispose();
+
+            base.OnExit(e);
+        }
+
+        private MotorsportDriversViewModel CreateMotorsportDriversViewModel(IServiceProvider services)
+        {
+            return MotorsportDriversViewModel.LoadViewModel(
+                services.GetRequiredService<MotorsportDriversStore>(),
+                services.GetRequiredService<SelectedMotorsportDriverStore>(),
+                services.GetRequiredService<ModalNavigationStore>()
+                );
+        }
+    }
 }
