@@ -27,6 +27,7 @@ namespace MotorsportDrivers.WPF.Stores
         }
 
         public event Action SelectedMotorsportDriverChanged;
+        public event Action<MotorsportDriver> MotorsportDriverDeletedEvent;
 
         public SelectedMotorsportDriverStore(MotorsportDriversStore motorsportDriversStore)
         {
@@ -34,6 +35,16 @@ namespace MotorsportDrivers.WPF.Stores
 
             _motorsportDriversStore.MotorsportDriverUpdatedEvent += _motorsportDriversStore_MotorsportDriverUpdatedEvent;
             _motorsportDriversStore.MotorsportDriverCreatedEvent += _motorsportDriversStore_MotorsportDriverCreatedEvent;
+            _motorsportDriversStore.MotorsportDriverDeletedEvent += _motorsportDriversStore_MotorsportDriverDeletedEvent;
+        }
+
+        private void _motorsportDriversStore_MotorsportDriverDeletedEvent(Guid motorsportDriverId)
+        {
+
+            if (SelectedMotorsportDriver != null && motorsportDriverId == SelectedMotorsportDriver.Id)
+            {
+                SelectedMotorsportDriver = null;
+            }
         }
 
         private void _motorsportDriversStore_MotorsportDriverCreatedEvent(MotorsportDriver motorsportDriver)
